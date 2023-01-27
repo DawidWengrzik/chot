@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+}
+
+:root{
+    --midnight-blue: #41729F;
+    --blue-gay: #5885AF;
+    --dark-blue: #274472;
+    --baby-blue: #C3E0E5;
+}
