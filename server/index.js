@@ -45,8 +45,8 @@ io.on("connection", (socket) => {
 
     //rozpoczecie wideo czatu poprzez numer pokoju, w ktorym jestesmy poprzez "callRoom"
     socket.on("callRoom", (data) => {
-      io.to(data.roomToCall).emit("callRoom", { signal: data.signalData, from: data.from })
-      console.log(data.from)
+      io.to(data.roomToCall).emit("callRoom", { signal: data.signalData, from: data.from, nickname: data.nickname 
+      })
     });
   
     //odebranie polaczenia

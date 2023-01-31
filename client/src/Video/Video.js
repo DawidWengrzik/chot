@@ -4,12 +4,14 @@ import Peer from "simple-peer";
 
 
 
-function Video( { socket, room } ) {
+function Video( { socket, room, nickname } ) {
 
  	const [ stream, setStream ] = useState()
 
 	const [ receivingCall, setReceivingCall ] = useState(false)
     const [ caller, setCaller ] = useState()
+	const [ isCaller, setIsCaller] = useState(false)
+	const [ callerName, setCallerName ] = useState('')
 	const [ callerSignal, setCallerSignal ] = useState()
 
 	const [ callAccepted, setCallAccepted ] = useState(false)
@@ -38,11 +40,13 @@ function Video( { socket, room } ) {
             setReceivingCall(true)
             setCaller(data.from)
             setCallerSignal(data.signal)
+			setCallerName(data.nickname)
         });
     }, [socket]);
 
     //nowe polaczenie peer-peer
 	const callRoom = (id) => {
+		setIsCaller(!isCaller)
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
@@ -55,6 +59,7 @@ function Video( { socket, room } ) {
 				roomToCall: room,
 				signalData: data,
 				from: socket.id,
+				nickname: nickname
 			});
 		});
 
@@ -131,10 +136,10 @@ function Video( { socket, room } ) {
 						</button>
 					)}
 				
-				{receivingCall && !callAccepted ? (
+				{receivingCall && !callAccepted && !isCaller ? (
 					<div className="caller">
 						<div className='caller-info'>
-							<h1> Someone is calling {console.log(socket)}
+							<h1> Someone is calling {callerName}
 							 </h1>
 							<button onClick={answerCall}>
 								<span>

@@ -67,7 +67,7 @@ function App() {
         }>
         </Route>
         <Route path="/Chat" element={<Chat socket={socket} nickname={nickname} room={room}/>}></Route>
-        <Route path="/Video" element={<Video socket={socket} room={room}/>}></Route>
+        <Route path="/Video" element={<Video socket={socket} nickname={nickname} room={room}/>}></Route>
       </Routes>
   </BrowserRouter>
   );
