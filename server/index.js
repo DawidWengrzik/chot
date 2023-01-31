@@ -6,6 +6,15 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 app.use(cors()); // identyfikujemy główny obiekt z mechanizmem cors
 
+// Build project from server
+if (['production'].includes(process.env.NODE_ENV)) {
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('client', 'build', 'index.html'));
+  });
+}
 
 const io = new Server(server, {
   cors: {
